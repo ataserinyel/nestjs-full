@@ -1,0 +1,9 @@
+Her modül bir işten sorumlu temel bir birimdir
+İki modül var: Root modül ve feature modül. Feature modüllerin içinde de feature modül olabilir.
+npm run lint -> hataları düzeltiyor
+
+nest g module isimX
+
+nest g controller isimX -> isimX modülünün içinde controller oluşturur
+nest g service isimX -> isimX modülünün içinde service oluşturur
+
