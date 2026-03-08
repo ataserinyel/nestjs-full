@@ -16,10 +16,32 @@ describe('AppController (e2e)', () => {
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/ (GET) should render home page', () => {
     return request(app.getHttpServer())
       .get('/')
       .expect(200)
-      .expect('Hello World!');
+      .expect((res) => {
+        expect(res.text).toContain('Ana Sayfa');
+        expect(res.text).toContain('Hesap Makinesi');
+      });
+  });
+
+  it('/hesapla (GET) should return calculator result', () => {
+    return request(app.getHttpServer())
+      .get('/hesapla?sayi1=5&sayi2=3&islem=topla')
+      .expect(200)
+      .expect((res) => {
+        expect(res.text).toContain('Hesaplama sonucu: 8');
+      });
+  });
+
+  it('/kelimeler (POST) should print uploaded words', () => {
+    return request(app.getHttpServer())
+      .post('/kelimeler')
+      .attach('textDosyasi', Buffer.from('Merhaba dunya nest js'), 'ornek.txt')
+      .expect(201)
+      .expect((res) => {
+        expect(res.text).toContain('Merhaba, dunya, nest, js');
+      });
   });
 });
